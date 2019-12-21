@@ -1,0 +1,46 @@
+
+.intro{
+	padding-top: 10px;
+	font-size: 25px;	
+	font-weight: bold;
+	color: #0073e6;
+}
+
+.listhead{
+	font-size: 20px;
+	font-weight: bold;
+	color: #0073e6;
+	padding-left: 15px;
+	padding-bottom: 5px;
+}
+
+li span {
+	padding-left: 25px;
+	font-weight: bold;
+	padding-right: 10px;
+}
+
+ul li{
+	padding-bottom: 10px;
+}
+
+.sizeimage{
+	padding: 5px;
+	box-shadow: 6px 6px 4px #f2f2f2;
+	width: 25%;
+}
+.wrap{
+	display: inline;
+}
+.wrap .delete {
+	visibility:hidden;
+	position:relative;
+
+}
+
+.wrap:hover .delete {
+	visibility:visible;
+	position:relative;
+	right: 15%;
+
+}
