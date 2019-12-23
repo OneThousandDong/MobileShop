@@ -16,8 +16,8 @@ class ChitietOrder extends React.Component{
   }
 
   componentDidMount(){
-    let chitiet = this.props.match.params.orderDTID;
-       const url = "http://localhost:5000/chitietdonhang/list/"+chitiet;
+     let chitietUrl = this.props.match.params.orderDTID;
+      const url = "http://localhost:5000/chitietdonhang/list/"+chitietUrl;
       axios.get(url)
       .then(res=>{
       if (res.data) {
@@ -88,58 +88,12 @@ class ChitietOrder extends React.Component{
           <td>{data.Mau}</td>
           <td>{data.TenPhuKien}</td>
           <td>{data.GiaBan}</td>
-          <td>
-            {/*<Link to={"/editorder/"+data.MADonHang} className="btn btn-primary"><FaWhmcs /></Link> */}
-            <Button color="danger" onClick={()=>this.onDelete(data.MADonHang)}><FaTrash /></Button>
-             {/*<Link to={"/order/chitietdonhang/"+data.MADonHang} className="btn btn-primary">Chi tiết</Link>*/}
-          </td>
         </tr>
       )
       }
     })
   }
 
-  onDelete(MADonHang){
-        Swal.fire({
-          title: 'Mày chắc chắn xóa?',
-          text: 'Whats up men',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Tao chắc chắn',
-          cancelButtonText: 'Tao không muốn xóa nữa'
-        }).then((result) => {
-          if (result.value) {
-            this.sendDelete(MADonHang);
-          } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire(
-              'Không xóa nữa',
-              'OH MY GOD',
-              'error'
-            )
-          }
-        })
-    }
-    sendDelete(MADonHang)
-        {
-        
-          // url de backend
-          const baseUrl = `http://localhost:5000/dienthoai/delete/${MADonHang}`;   // parameter data post
-          // network
-          axios.delete(baseUrl)
-          .then(response =>{
-            if (response.data) {
-              Swal.fire(
-                'Đã xóa',
-                'OK',
-                'success'
-              )
-              this.loadSanpham()
-            }
-          })
-          .catch ( error => {
-            alert("Error 325 ")
-          })
-        }
 }
 
 

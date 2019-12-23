@@ -4,8 +4,8 @@ import axios from 'axios';
 import { Link} from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
-
-import {FaPlus, FaTrash, FaWhmcs,FaWpforms} from "react-icons/fa";
+import '../dienthoai/dienthoai.css';
+import {FaPlus, FaTrash, FaWhmcs,FaWpforms,FaBookmark} from "react-icons/fa";
 
 class ListOrder extends React.Component{
   constructor(props){
@@ -34,41 +34,42 @@ class ListOrder extends React.Component{
     .catch(error=>{
       alert("Error server "+error)
     })
-
   }
 
 
   render(){
     return(
-      <div>
-      <div className="top">
-        <Link to="/createsanpham" className="btn btn-primary"><FaPlus />Thêm sản phẩm</Link>
 
-      </div>
         <Table hover>
+           <col style={{width:"5%"}} />
+            <col style={{width:"5%"}} />
+            <col style={{width:"10%"}} />
+            <col style={{width:"10%"}} />
+            <col style={{width:"10%"}} />
+            <col style={{width:"10%"}} />
+            <col style={{width:"7%"}} />
+            <col style={{width:"3%"}} />
           <thead>
             <tr>
-              <th>Mã đơn hàng</th>
-              <th>Mã khách hàng</th>
-              <th>Ngày đặt hàng</th>
-              <th>Ngày chuyển hàng</th>
-              <th>Ngày nhận hàng</th>
+              <th>Mã đơn</th>
+              <th>Mã khách</th>
+              <th>Ngày đặt</th>
+              <th>Ngày chuyển</th>
+              <th>Ngày nhận</th>
               <th>Trạng thái</th>
               <th>Tổng tiền</th>
               <th>Hành động</th>
-              
             </tr>
           </thead>
           <tbody>
             {this.loadFillData()}
           </tbody>
         </Table>
-        </div>
+
       )
     }
 
   loadFillData(){
-
     return this.state.listSanpham.map((data)=>{
       return(
         <tr key={data.MADonHang}>
@@ -79,42 +80,53 @@ class ListOrder extends React.Component{
           <td>{data.NgayNhanHang}</td>
           <td>{data.TrangThai}</td>
           <td>{data.Tongtien} VNĐ</td>
-          <td>
-            <Link to={"/editorder/"+data.MADonHang} className="btn btn-primary"><FaWhmcs /></Link> 
-            <Button color="danger" onClick={()=>this.onDelete(data.MaDienThoai)}><FaTrash /></Button>
-             <Link to={"/orderdetail/chitietdonhang/"+data.MADonHang} className="btn btn-primary"><FaWpforms /></Link>
-             <Link to={"/orderdetail/thongtin/"+data.MADonHang} className="btn btn-primary"><FaWpforms /></Link>
+          <td className="lasttd"><ul>
+            <li><Link to={"/editorder/"+data.MADonHang} className="btn btn-primary"><FaWhmcs /></Link></li> 
+            <li><Button color="danger" onClick={()=>this.onDelete(data.MADonHang)}><FaTrash /></Button></li>
+            </ul>
+            <ul>
+            <li><Link to={"/orderdetail/chitietdonhang/"+data.MADonHang} className="btn btn-primary"><FaWpforms /></Link></li>
+            <li><Link to={"/orderdetail/thongtin/"+data.MADonHang} className="btn btn-primary last"><FaBookmark /></Link></li>
+            </ul>
           </td>
         </tr>
       )
     })
   }
 
-  onDelete(MaDienThoai){
+  onDelete(MADonHang){
         Swal.fire({
-          title: 'Mày chắc chắn xóa?',
-          text: 'Whats up men',
+          title: 'Bạn chắc chắc muốn xóa?',
+          text: '',
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonText: 'Tao chắc chắn',
-          cancelButtonText: 'Tao không muốn xóa nữa'
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No'
         }).then((result) => {
           if (result.value) {
-            this.sendDelete(MaDienThoai);
+            this.sendDelete(MADonHang);
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire(
-              'Không xóa nữa',
-              'OH MY GOD',
+              'OK',
+              '',
               'error'
             )
           }
         })
     }
-    sendDelete(MaDienThoai)
+
+    sendDelete(MADonHang)
         {
-        
-          // url de backend
-          const baseUrl = `http://localhost:5000/dienthoai/delete/${MaDienThoai}`;   // parameter data post
+          const chitietUrl = `http://localhost:5000/chitietdonhang/delete/${MADonHang}`;  
+          axios.delete(chitietUrl)
+          .then(response =>{
+          })
+          .catch ( error => {
+            alert("Error 325 ")
+          })
+
+          // url  backend
+          const baseUrl = `http://localhost:5000/donhang/delete/${MADonHang}`;   // parameter data post
           // network
           axios.delete(baseUrl)
           .then(response =>{
@@ -130,6 +142,7 @@ class ListOrder extends React.Component{
           .catch ( error => {
             alert("Error 325 ")
           })
+          
         }
 }
 

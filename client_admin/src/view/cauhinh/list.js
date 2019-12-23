@@ -1,5 +1,5 @@
 import React from 'react';
-import {  Button, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import {  Button, Row, Col, Form, FormGroup, Label, Input ,Progress} from 'reactstrap';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import './listcauhinh.css';
@@ -57,93 +57,95 @@ class EditCauhinh extends React.Component{
         TenDienThoai:"",
         MaDienThoai:"",
         DuongDan: [],
+        selectedFile: null,
+        loaded:0,
       }
     }
 
     componentDidMount(){
-    let dtId = this.props.match.params.cauhinhID;
-    const urldt = "http://localhost:5000/dienthoai/hadienthoai/"+dtId;
-    axios.get(urldt)
-    .then(res => {
-        if (res.data) {
-          const data = res.data[0];
-          const im = res.data;
-         
-          this.setState({
-            dataSanpham: data,
-            TenDienThoai: data.TenDienThoai,
-            MaDienThoai: data.MaDienThoai,
-            DuongDan: im.map((i)=>i.DuongDan)
-          })
-      
-       }
-       else {
-          alert("Error web service");
-        }
-    })
-    .catch(error=>{
-      alert("Error server "+error);
-    }) 
+        let dtId = this.props.match.params.cauhinhID;
+        const urldt = "http://localhost:5000/dienthoai/hadienthoai/"+dtId;
+        axios.get(urldt)
+        .then(res => {
+            if (res.data) {
+              const data = res.data[0];
+              const im = res.data;
+             
+              this.setState({
+                dataSanpham: data,
+                TenDienThoai: data.TenDienThoai,
+                MaDienThoai: data.MaDienThoai,
+                DuongDan: im.map((i)=>i.DuongDan)
+              })
+          
+           }
+           else {
+              alert("Error web service");
+            }
+        })
+        .catch(error=>{
+          alert("Error server "+error);
+        }) 
 
 
-    let userId = this.props.match.params.cauhinhID;
-    const url = "http://localhost:5000/cauhinh/list/"+userId;
-    axios.get(url)
-    .then(res => {
-        if (res.data) {
-          const data = res.data[0];
-          this.setState({
-            dataSanpham: data,
-            CongNgheManHinh: data.CongNgheManHinh,
-            DoPhanGiaiMH: data.DoPhanGiaiMH,
-            DoRongMH: data.DoRongMH,
-            MatKinh: data.MatKinh,
-            DoPhanGiaiCamSau: data.DoPhanGiaiCamSau,
-            QuayPhimCamSau: data.QuayPhimCamSau,
-            DenFlashCamSau: data.DenFlashCamSau,
-            NangCaoCamSau: data.NangCaoCamSau,
-            DoPhanGiaiCamTruoc:data.DoPhanGiaiCamTruoc,
-            VideoCall: data.VideoCall,
-            ThongTinCamTruoc: data.ThongTinCamTruoc,
-            HeDieuHanh: data.HeDieuHanh,
-            Chipset: data.Chipset,
-            CPU: data.CPU,
-            GPU: data.GPU,
-            RAM: data.RAM,
-            ROM: data.ROM,
-            TheNhoNgoai: data.TheNhoNgoai,
-            MangDIDong: data.MangDIDong,
-            SIM: data.SIM,
-            WIFI: data.WIFI,
-            GPS: data.GPS,
-            Bluetooth: data.Bluetooth,
-            KetNoi: data.KetNoi,
-            JackTaiNghe: data.JackTaiNghe,
-            KetNoiKhac: data.KetNoiKhac,
-            ThietKe: data.ThietKe,
-            ChatLieu: data.ChatLieu,
-            KichThuoc: data.KichThuoc,
-            TrongLuong: data.TrongLuong,
-            DungLuongPin:data.DungLuongPin,
-            LoaiPin: data.LoaiPin,
-            CongNghePin: data.CongNghePin,
-            BaoMat: data.BaoMat,
-            TinhNangDacBiet: data.TinhNangDacBiet,
-            GhiAm: data.GhiAm,
-            Radio: data.Radio,
-            XemPhim: data.XemPhim,
-            NgheNhac: data.NgheNhac,
-            ThoiDIemPhatHanh: data.ThoiDIemPhatHanh,
-             })
-          console.log(res.data[0]);
-       }
-       else {
-          alert("Error web service");
-        }
-    })
-    .catch(error=>{
-      alert("Error server "+error);
-    })
+        let userId = this.props.match.params.cauhinhID;
+        const url = "http://localhost:5000/cauhinh/list/"+userId;
+        axios.get(url)
+        .then(res => {
+            if (res.data) {
+              const data = res.data[0];
+              this.setState({
+                dataSanpham: data,
+                CongNgheManHinh: data.CongNgheManHinh,
+                DoPhanGiaiMH: data.DoPhanGiaiMH,
+                DoRongMH: data.DoRongMH,
+                MatKinh: data.MatKinh,
+                DoPhanGiaiCamSau: data.DoPhanGiaiCamSau,
+                QuayPhimCamSau: data.QuayPhimCamSau,
+                DenFlashCamSau: data.DenFlashCamSau,
+                NangCaoCamSau: data.NangCaoCamSau,
+                DoPhanGiaiCamTruoc:data.DoPhanGiaiCamTruoc,
+                VideoCall: data.VideoCall,
+                ThongTinCamTruoc: data.ThongTinCamTruoc,
+                HeDieuHanh: data.HeDieuHanh,
+                Chipset: data.Chipset,
+                CPU: data.CPU,
+                GPU: data.GPU,
+                RAM: data.RAM,
+                ROM: data.ROM,
+                TheNhoNgoai: data.TheNhoNgoai,
+                MangDIDong: data.MangDIDong,
+                SIM: data.SIM,
+                WIFI: data.WIFI,
+                GPS: data.GPS,
+                Bluetooth: data.Bluetooth,
+                KetNoi: data.KetNoi,
+                JackTaiNghe: data.JackTaiNghe,
+                KetNoiKhac: data.KetNoiKhac,
+                ThietKe: data.ThietKe,
+                ChatLieu: data.ChatLieu,
+                KichThuoc: data.KichThuoc,
+                TrongLuong: data.TrongLuong,
+                DungLuongPin:data.DungLuongPin,
+                LoaiPin: data.LoaiPin,
+                CongNghePin: data.CongNghePin,
+                BaoMat: data.BaoMat,
+                TinhNangDacBiet: data.TinhNangDacBiet,
+                GhiAm: data.GhiAm,
+                Radio: data.Radio,
+                XemPhim: data.XemPhim,
+                NgheNhac: data.NgheNhac,
+                ThoiDIemPhatHanh: data.ThoiDIemPhatHanh,
+                 })
+              
+           }
+           else {
+              alert("Error web service");
+            }
+        })
+        .catch(error=>{
+          alert("Error server "+error);
+        })
     }
 
     imageLoad(){
@@ -159,19 +161,19 @@ class EditCauhinh extends React.Component{
     }
     onDelete(i){
         Swal.fire({
-          title: 'Mày chắc chắn xóa?',
-          text: 'Whats up men',
+          title: 'Bạn chắc chắn muốn xóa?',
+          text: '',
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonText: 'Tao chắc chắn',
-          cancelButtonText: 'Tao không muốn xóa nữa'
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No'
         }).then((result) => {
           if (result.value) {
             this.sendDelete(i);
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire(
-              'Không xóa nữa',
-              'OH MY GOD',
+              'OK',
+              '',
               'error'
             )
           }
@@ -200,12 +202,60 @@ class EditCauhinh extends React.Component{
           })
         }
 
+    onChangeHandler=event=>{
+        this.setState({
+          selectedFile: event.target.files
+        })
+      }
+
+    onClickHandler = () =>{
+        const data = new FormData()
+        if(this.state.selectedFile == null){
+            alert('Bạn chưa chọn ảnh')
+        }
+        else{
+        for(var x = 0; x<this.state.selectedFile.length; x++) {
+             data.append('file', this.state.selectedFile[x])
+             console.log(this.state.selectedFile[x].name)
+             axios.post("http://localhost:5000/hadienthoai/create",{
+              MaDT: this.state.MaDienThoai,
+              DuongDan: this.state.selectedFile[x].name
+             })
+
+        }
+        axios.post("http://localhost:5000/uploadimage", data, { 
+          onUploadProgress: ProgressEvent => {
+         this.setState({
+           loaded: (ProgressEvent.loaded / ProgressEvent.total*100),
+               })
+           },
+          })
+          .then(res => { // then print response status
+          })
+      }
+        setTimeout(
+            function() {
+                window.location.reload();
+            }
+            .bind(this),
+            1000
+        );
+    }
+
   render(){
     // let userId = this.props.match.params.id;
     return(
       <div className="listch">
       <center className="intro">Thông số kỹ thuật chi tiết {this.state.TenDienThoai}</center>
       <center><div>{this.imageLoad()}</div></center>
+      <center style={{paddingTop : '25px'}}>
+      <h3>Image Upload</h3>
+      <input type="file" name="file" multiple onChange={this.onChangeHandler} />
+      <Button type="button" onClick={this.onClickHandler}>Upload</Button>
+      </center>
+      <div className="form-group">
+         <Progress max="100" color="success" value={this.state.loaded} >{Math.round(this.state.loaded,2) }%</Progress>
+      </div>
       <ul>
         <li className="listhead">Màn hình</li>
         <li>
@@ -364,6 +414,8 @@ class EditCauhinh extends React.Component{
       </div>
     )
   }
+
+
 
 }
 

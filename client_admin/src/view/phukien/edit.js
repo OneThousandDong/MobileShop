@@ -52,12 +52,13 @@ class EditPhuKien extends React.Component{
 
   render(){
     return(
-      <Form>
+      <Form className="formdt">
+      <div className="headformdt">Thông tin phụ kiện</div>
         <Row>
           <Col xs="4">
                 <FormGroup>
                     <Label for="eMa">Mã phụ kiện</Label>
-                    <Input type="number" name="ma" id="eMa" value={this.state.maPhuKien} onChange={(value) => this.setState({maPhuKien:value.target.value})}/>
+                    <Input type="text" name="ma" id="eMa" value={this.state.maPhuKien} onChange={(value) => this.setState({maPhuKien:value.target.value})} disabled/>
                 </FormGroup>
           </Col>
           <Col xs="4">
@@ -67,52 +68,50 @@ class EditPhuKien extends React.Component{
               </FormGroup>
           </Col>
         </Row>
-
         <Row>
           <Col xs="4">
               <FormGroup>
-                  <Label for="eTenpk">Tên phụ kiện</Label>
-                  <Input type="text" name="tenpk" id="eTenpk" value={this.state.tenPhuKien} onChange={(value) => this.setState({tenPhuKien:value.target.value})} />
+                  <Label for="eHang">Tên phụ kiện</Label>
+                  <Input type="textarea" name="hang" id="eHang" value={this.state.tenPhuKien} onChange={(value) => this.setState({tenPhuKien:value.target.value})} />
               </FormGroup>
           </Col>
           <Col xs="4">
                 <FormGroup>
                     <Label for="eSum">Số lượng</Label>
-                    <Input type="number" id="eSum" value={this.state.soLuong} onChange={(value)=> this.setState({soLuong:value.target.value})}/>
+                    <Input type="text" id="eSum" value={this.state.soLuong} onChange={(value)=> this.setState({soLuong:value.target.value})}/>
                 </FormGroup>
           </Col>
         </Row>
-
         <Row>
           <Col xs="4">
               <FormGroup>
                   <Label for="eGia">Giá bán</Label>
-                  <Input type="number" name="gia" id="eGia" value={this.state.giaBan} onChange={(value)=> this.setState({giaBan:value.target.value})}/>
+                  <Input type="text" name="gia" id="eGia" value={this.state.giaBan} onChange={(value)=> this.setState({giaBan:value.target.value})}/>
               </FormGroup>
           </Col>
            <Col xs="4">
               <FormGroup>
                   <Label for="eGiakm">Giá khuyến mãi</Label>
-                  <Input type="number" name="giakm" id="eGiakm" value={this.state.giaKhuyenMai || ''} onChange={(value)=> this.setState({giaKhuyenMai:value.target.value})}/>
+                  <Input type="text" name="giakm" id="eGiakm" value={this.state.giaKhuyenMai} onChange={(value)=> this.setState({giaKhuyenMai:value.target.value})}/>
               </FormGroup>
           </Col>
         </Row>
-
         <Row>
           <Col xs="4">
               <FormGroup>
                   <Label for="eHang">Hãng</Label>
-                  <Input type="text" name="hang" id="eHang" value={this.state.hang || ''} onChange={(value)=> this.setState({hang:value.target.value})}/>
+                  <Input type="text" name="hang" id="eHang" value={this.state.hang} onChange={(value)=> this.setState({hang:value.target.value})}/>
               </FormGroup>
           </Col>
            <Col xs="4">
               <FormGroup>
                   <Label for="eThongtin">Thông tin</Label>
-                  <Input type="textarea" name="tt" id="eThongtin" value={this.state.thongtin || ''} onChange={(value)=> this.setState({thongtin:value.target.value})}/>
+                  <Input type="textarea" name="tt" id="eThongtin" value={this.state.thongtin} onChange={(value)=> this.setState({thongtin:value.target.value})}/>
               </FormGroup>
           </Col>
         </Row>
-        <Button color="info" onClick={()=>this.sendUpdate()}>Update</Button>
+ 
+          <Button color="info" onClick={()=>this.sendUpdate()}>Update</Button>
       </Form> 
     )
   }

@@ -1,9 +1,81 @@
 .top{
 	margin: 15px 15px;
 	float: right;
+  padding-bottom: 10px;
 }
 
-table, th, td {
-  border-bottom: 1px solid black;
+Table, td {  
+  border: 1px solid #b3ccff;
+  text-align: left;
+
+}
+
+Table th{
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  color: #0044cc;
+}
+
+Table {
   border-collapse: collapse;
+  width: 100%;
+
+}
+
+th, td {
+  padding: 15px;
+}
+.sear input[type=text] {
+  width: 25%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: white;
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  padding-top: 15px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.sear{
+	padding-left: 15px;
+}
+
+/* Table td .action{
+  text-align: center;
+} */
+Table td {
+  text-align: center;
+}
+
+.action ul li{
+  text-align: center;
+}
+
+.last{
+  margin-left: 5px;
+}
+.lasttd ul{
+display: flex;
+  align-items: center;
+}
+.formdt{
+  margin-left: 20px;
+  padding: 15px;
+}
+.headformdt{
+  font-size: 25px;
+  font-weight: bold;
+  color: #005ce6;
+  padding: 10px;
+}
+.headformdtct{
+   font-size: 20px;
+  font-weight: bold;
+  color: #005ce6;
+  padding: 10px;
+  margin-left: 5px;
 }

@@ -44,17 +44,28 @@ class ShowListPhuKien extends React.Component{
         </div>
       
         <Table hover>
+            <col style={{width:"3%"}} />
+            <col style={{width:"5%"}} />
+            <col style={{width:"10%"}} />
+            <col style={{width:"8%"}} />
+            <col style={{width:"5%"}} />
+            <col style={{width:"5%"}} />
+            <col style={{width:"7%"}} />
+            <col style={{width:"25%"}} />
+            <col style={{width:"1%"}} />
+
+
           <thead>
             <tr>
               <th>Mã</th>
               <th>Loại</th>
               <th>Tên</th>
-              <th>SL</th>
+              <th>Số lượng</th>
               <th>Giá</th>
               <th>Giá KM</th>
               <th>Hãng</th>
               <th>Thông tin</th>
-              <th>HĐ</th>
+              <th>Hành động</th>
             </tr>
           </thead>
           <tbody>
@@ -78,10 +89,10 @@ class ShowListPhuKien extends React.Component{
           <td>{data.GiaKhuyenMai}</td>
           <td>{data.Hang}</td>
           <td>{data.ThongTin}</td>
-          <td>
+          <td className="lasttd"><ul>
             <Link to={"/phukien/editphukien/"+data.MaPhuKien} className="btn btn-primary"><FaWhmcs /></Link> 
-            <Button color="danger" onClick={()=>this.onDelete(data.MaPhuKien)}><FaTrash /></Button> 
-            <Link to={"/phukien/hinhanh/"+data.MaPhuKien} className="btn btn-primary"><FaWpforms/> </Link>
+            <Button color="danger" onClick={()=>this.onDelete(data.MaPhuKien)}><FaTrash /></Button> </ul>
+            <Link to={"/phukien/hinhanh/"+data.MaPhuKien} className="btn btn-primary"><FaWpforms/></Link>
           </td>
         </tr>
       )
@@ -90,8 +101,8 @@ class ShowListPhuKien extends React.Component{
 
   onDelete(MaPhuKien){
         Swal.fire({
-          title: 'Mày chắc chắn xóa?',
-          text: 'Whats up men',
+          title: 'Bạn chắc chắc muốn xóa?',
+          text: '',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Tao chắc chắn',
@@ -101,8 +112,8 @@ class ShowListPhuKien extends React.Component{
             this.sendDelete(MaPhuKien);
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire(
-              'Không xóa nữa',
-              'OH MY GOD',
+              'OK',
+              '',
               'error'
             )
           }
@@ -128,7 +139,25 @@ class ShowListPhuKien extends React.Component{
           .catch ( error => {
             alert("Error 325 ")
           })
+
+          const ImageUrl = `http://localhost:5000/haphukien/deleteall/${MaPhuKien}`;
+          axios.delete(ImageUrl)
+          .then(response =>{
+            if (response.data) {
+              Swal.fire(
+                'Đã xóa',
+                'OK',
+                'success'
+              )
+              this.loadSanpham()
+            }
+          })
+          .catch ( error => {
+            alert("Error 325 ")
+          })
         }
+
+
 }
 
 

@@ -20,7 +20,8 @@ class AddNhanVien extends React.Component{
 	render(){
 		return(
 			<div>
-			<Form>
+			<Form className="formdt">
+      <div className="headformdt">Thông tin nhân viên</div>
 				<Row>
 					<Col xs="4">
 				        <FormGroup>

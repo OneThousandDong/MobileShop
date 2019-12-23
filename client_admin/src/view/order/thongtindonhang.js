@@ -38,7 +38,6 @@ class ThongTinDonHang extends React.Component{
           GhiChu: data.GhiChu,
           Tongtien: data.Tongtien
         })
-        console.log(data)
       }
       else {
         alert("Error web service")
@@ -69,25 +68,26 @@ class ThongTinDonHang extends React.Component{
 
   render(){
     return(
-      <div>
-        <h3>Thông tin chi tiết đơn hàng</h3>
+      <div style={{padding: "20px"}}>
+        <div style={{fontSize: "25px", padding: "20px 20px",fontWeight: 'bold',color:"#005ce6"}}>Thông tin chi tiết đơn hàng</div>
+        <div style={{fontSize:"20px"}}>
         <ul>
-          <li>Mã đơn hàng {this.state.MADonHang}
+          <li>Mã đơn hàng:<span style={{fontWeight:"bold",color:"#4d94ff"}}> {this.state.MADonHang}</span>
           </li>
-          <li>Tên khách hàng {this.state.HoTen}
+          <li>Tên khách hàng:<span style={{fontWeight:"bold",color:"#4d94ff"}}> {this.state.HoTen}</span>
           </li>
-          <li>Địa chỉ {this.state.DiaChi}
+          <li>Địa chỉ:<span style={{fontWeight:"bold",color:"#4d94ff"}}> {this.state.DiaChi}</span>
           </li>
-          <li>Số điện thoại {this.state.SoDienThoai}
+          <li>Số điện thoại:<span style={{fontWeight:"bold",color:"#4d94ff"}}> {this.state.SoDienThoai}</span>
           </li>
-          <li>Email  {this.state.Email}
+          <li>Email:<span style={{fontWeight:"bold",color:"#4d94ff"}}>  {this.state.Email}</span>
           </li>
-          <li>Ghi chú {this.state.GhiChu}
+          <li>Ghi chú:<span style={{fontWeight:"bold",color:"#4d94ff"}}> {this.state.GhiChu}</span>
           </li>
         </ul>
         {this.loadFillData()}
-        Tổng tiền đơn hàng  {this.state.Tongtien} VNĐ
-
+        <span style={{fontWeight: "bold",color:"#005ce6"}}>Tổng tiền đơn hàng:  {this.state.Tongtien} VNĐ</span>
+        </div>
       </div>
       )
     }

@@ -53,7 +53,8 @@ class EditDonHang extends React.Component{
     // let userId = this.props.match.params.id;
     return(
       <div>
-      <Form>
+      <Form className="formdt"> 
+      <div className="headformdt">Sửa thông tin đơn hàng</div>
        <Row>
           <Col xs="3">
                 <FormGroup>
@@ -95,7 +96,7 @@ class EditDonHang extends React.Component{
                   <Input type="text" name="gia" id="eGia" value={this.state.TrangThai} onChange={(value)=> this.setState({TrangThai:value.target.value})}/>
               </FormGroup>
           </Col>
-           <Col xs="4">
+           <Col xs="3">
               <FormGroup>
                   <Label for="eGiakm">Tổng tiền</Label>
                   <Input type="text" name="giakm" id="eGiakm" value={this.state.Tongtien} onChange={(value)=> this.setState({Tongtien:value.target.value})}/>

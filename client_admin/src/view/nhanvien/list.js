@@ -77,10 +77,10 @@ class ShowListNhanVien extends React.Component{
           <td>{data.SDT}</td>
           <td>{data.Password}</td>
           {/*<td>{data.Level}</td>*/}
-          <td>
+          <td className="lasttd"><ul>
             <Link to={"/nhanvien/suanhanvien/"+data.MaNguoiDung} className="btn btn-primary"><FaWhmcs/></Link> 
           
-            <Button color="danger" onClick={()=>this.onDelete(data.MaNguoiDung)}><FaTrash/></Button> 
+            <Button color="danger" onClick={()=>this.onDelete(data.MaNguoiDung)}><FaTrash/></Button> </ul>
           </td>
         </tr>
       )
@@ -91,19 +91,19 @@ class ShowListNhanVien extends React.Component{
 
     onDelete(MaNguoiDung){
         Swal.fire({
-          title: 'Are you sure?',
-          text: 'Nguyen Huu Minh Quang',
+          title: 'Bạn chắc chắc muốn xóa?',
+          text: '',
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonText: 'Yes, delete it!',
-          cancelButtonText: 'No, keep it'
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No'
         }).then((result) => {
           if (result.value) {
             this.sendDelete(MaNguoiDung)
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire(
-              'Cancelled',
-              'OH MY GOD',
+              'OK',
+              '',
               'error'
             )
           }

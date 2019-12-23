@@ -23,12 +23,12 @@ class FormCreatePhuKien extends React.Component{
         this.setState({
           selectedFile: event.target.files
         })
-      }
+  }
 
   render(){
     return(
-      <div>
-      <Form>
+      <Form className="formdt">
+      <div className="headformdt">Thông tin phụ kiện</div>
         <Row>
           <Col xs="4">
                 <FormGroup>
@@ -47,7 +47,7 @@ class FormCreatePhuKien extends React.Component{
           <Col xs="4">
               <FormGroup>
                   <Label for="eHang">Tên phụ kiện</Label>
-                  <Input type="text" name="hang" id="eHang" value={this.state.tenPhuKien} onChange={(value) => this.setState({tenPhuKien:value.target.value})} />
+                  <Input type="textarea" name="hang" id="eHang" value={this.state.tenPhuKien} onChange={(value) => this.setState({tenPhuKien:value.target.value})} />
               </FormGroup>
           </Col>
           <Col xs="4">
@@ -71,7 +71,7 @@ class FormCreatePhuKien extends React.Component{
               </FormGroup>
           </Col>
         </Row>
-          <Row>
+        <Row>
           <Col xs="4">
               <FormGroup>
                   <Label for="eHang">Hãng</Label>
@@ -86,37 +86,45 @@ class FormCreatePhuKien extends React.Component{
           </Col>
         </Row>
         <h3>Image Upload</h3>
-      <input type="file" name="file" multiple onChange={this.onChangeHandler} />
-      <div class="form-group">
-         <Progress max="100" color="success" value={this.state.loaded} >{Math.round(this.state.loaded,2) }%</Progress>
-      </div>
-        <Button color="info" onClick={()=>this.sendSave()}>Create</Button>
+          <input type="file" name="file" multiple onChange={this.onChangeHandler} />
+          <div class="form-group">
+            <Progress max="100" color="success" value={this.state.loaded} >{Math.round(this.state.loaded,2) }%</Progress>
+          </div>
+          <Button color="info" onClick={()=>this.sendSave()}>Create</Button>
       </Form> 
-      </div>
     )
   }
 
- onSubmit = () => {
-    this.props.history.push('/listphukien');    
+  onSubmit = () => {
+      this.props.history.push('/listphukien');    
   }
 
    sendSave(){
+      if(this.state.selectedFile == null){
+          alert('Bạn chưa chọn ảnh')
+        }if(this.state.maPhuKien == ''){
+          alert('Bạn chưa nhập mã phụ kiện')
+        }if(this.state.tenPhuKien == ''){
+          alert('Bạn chưa nhập tên phụ kiện')
+        }if(this.state.loaiPhuKien == ''){
+          alert('Bạn chưa nhập loại phụ kiện')
+        }if(this.state.soLuong == ''){
+          alert('Bạn chưa nhập số lượng phụ kiện')
+        }else{
+          const baseUrl = "http://localhost:5000/phukien/create";
 
+          const datapost = {
+             MaPhuKien : this.state.maPhuKien,
+             LoaiPhuKien : this.state.loaiPhuKien,
+             TenPhuKien : this.state.tenPhuKien,
+             SoLuong : this.state.soLuong,
+             GiaBan  : this.state.giaBan,
+             GiaKhuyenMai : this.state.giaKhuyenMai,
+             Hang: this.state.hang,
+             ThongTin: this.state.thongtin
+          }
 
-        const baseUrl = "http://localhost:5000/phukien/create";
-
-        const datapost = {
-           MaPhuKien : this.state.maPhuKien,
-           LoaiPhuKien : this.state.loaiPhuKien,
-           TenPhuKien : this.state.tenPhuKien,
-           SoLuong : this.state.soLuong,
-           GiaBan  : this.state.giaBan,
-           GiaKhuyenMai : this.state.giaKhuyenMai,
-           Hang: this.state.hang,
-           ThongTin: this.state.thongtin
-        }
-
-       axios.post(baseUrl,datapost)
+         axios.post(baseUrl,datapost)
           .then(response=>{
              if (1==1) {
                 Swal.fire(
@@ -133,17 +141,17 @@ class FormCreatePhuKien extends React.Component{
              alert("Error 34 "+error)
           })
 
-      const data = new FormData()
+        const data = new FormData()
         for(var x = 0; x<this.state.selectedFile.length; x++) {
              data.append('file', this.state.selectedFile[x])
              console.log(this.state.selectedFile[x].name)
              axios.post("http://localhost:5000/haphukien/create",{
-              MaDT: this.state.campmaDienthoai,
+              MaPhuKien: this.state.maPhuKien,
               DuongDan: this.state.selectedFile[x].name
              })
 
         }
-        axios.post("http://localhost:5000/uploadpk", data, { 
+         axios.post("http://localhost:5000/uploadpk", data, { 
           onUploadProgress: ProgressEvent => {
          this.setState({
            loaded: (ProgressEvent.loaded / ProgressEvent.total*100),
@@ -152,7 +160,7 @@ class FormCreatePhuKien extends React.Component{
           })
           .then(res => { // then print response status
           })
-
+          }
 
     }
 }

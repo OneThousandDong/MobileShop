@@ -101,10 +101,11 @@ body{
   margin-bottom: 20px;
 }
 
-@media (max-height: 500px){
+@media (max-height: 700px){
   .social_media{
     display: none !important;
   }
+  
 }
 
 .menutop{
@@ -116,7 +117,7 @@ body{
 }
 
 .content{
-  min-width: 750px;
+  min-width: 700px;
   box-shadow: 4px 5px 6px 3px #888888;
   background-color: #dde3ee;
   margin-left: 210px;
